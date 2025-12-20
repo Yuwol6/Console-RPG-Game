@@ -77,7 +77,7 @@ namespace ConsoleRpg
                 {
                     if (side == Side.Enemy)
                     {
-                        Console.Write("                               ");
+                        Console.Write("                                     ");
                     }
                     Console.WriteLine(character.GetStatus());
                 }

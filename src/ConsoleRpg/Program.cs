@@ -8,9 +8,9 @@ namespace ConsoleRpg
     {
         static void Main(string[] args)
         {
-            Console.Title = "The Final Battle";
+            Console.Title = "ConsoleRPG";
 
-            Console.Write("The True Programmer, what is your name? "); // entry setting inputs
+            Console.Write("You are the hero destined to hunt down Satan deep inside the dungeon. What is your name? "); // entry setting inputs
             string? playerName = Console.ReadLine();
             if (string.IsNullOrEmpty(playerName)) playerName = "Unnamed";
 
@@ -42,11 +42,11 @@ namespace ConsoleRpg
             }
 
             TrueProgrammer trueProgrammer = new TrueProgrammer(playerName);
-            VinFletcher vinFletcher = new VinFletcher("Vin Fletcher");
-            Skeleton skeletonOne = new Skeleton("skeleton1");
-            Skeleton skeletonTwo = new Skeleton("skeleton2");
-            Skeleton skeletonThree = new Skeleton("skeleton3");
-            TheUncodedOne theUncodedOne = new TheUncodedOne("The Uncoded One");
+            VinFletcher vinFletcher = new VinFletcher("Legolas");
+            Skeleton skeletonOne = new Skeleton("Tim the skeleton");
+            Skeleton skeletonTwo = new Skeleton("Jake the skeleton");
+            Skeleton skeletonThree = new Skeleton("Emma the skeleton");
+            TheUncodedOne theUncodedOne = new TheUncodedOne("Satan");
 
             Party allyParty = new Party(3);
             allyParty.AddToParty(trueProgrammer);
@@ -79,23 +79,23 @@ namespace ConsoleRpg
                     {
                         if (gameEnded.winningSide == Side.Enemy)
                         {
-                            Console.WriteLine("The heroes lost and the Uncoded One's forces have prevailed...");
+                            Console.WriteLine("The heroes lost and Satan's forces have prevailed... The world will end now.");
                         }
                         else
                         {
                             if (characterManager.Stage == 0)
                             {
-                                Console.WriteLine("The heroes have finished the first stage. They move on to the next cave.");
+                                Console.WriteLine("The heroes have cleared the first floor. They move on to the next floor.");
                                 ProgressStage(characterManager, allyParty, ref activeEnemyParty, enemyPartyTwo);
                                 continue;
                             }
                             else if (characterManager.Stage == 1)
                             {
-                                Console.WriteLine("The heroes have finished the second stage. The move on to the final cave.");
+                                Console.WriteLine("The heroes have cleared the second floor. The move on to the final floor.");
                                 ProgressStage(characterManager, allyParty, ref activeEnemyParty, enemyPartyThree);
                                 continue;
                             }
-                            else Console.WriteLine("The heroes won and the Uncoded One was defeated!");
+                            else Console.WriteLine("The heroes won and Satan was defeated! The world remains safe for now.");
                         }
 
                         Environment.Exit(0); // The game is finished
@@ -148,11 +148,11 @@ namespace ConsoleRpg
 
         static void DisplayStatus(CharacterManager characterManager, Character character)
         {
-            Console.WriteLine($"======================= STAGE {characterManager.Stage} =======================");
+            Console.WriteLine($"============================= STAGE {characterManager.Stage} =============================");
             characterManager.ShowStatus(Side.Friendly);
-            Console.WriteLine("-------------------------- VS -------------------------");
+            Console.WriteLine("-------------------------------- VS -------------------------------");
             characterManager.ShowStatus(Side.Enemy);
-            Console.WriteLine("=======================================================");
+            Console.WriteLine("===================================================================");
 
             Console.WriteLine($"It is {character}'s turn...");
         }
