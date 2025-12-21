@@ -22,14 +22,27 @@ namespace ConsoleRpg
             Stage++;
         }
 
+        public void SetToLastStage()
+        {
+            Stage = -1;
+        }
+
         public void AddCharacters(List<Character> characters)
         {
             this.characters.AddRange(characters);
         }
 
-        public void RemoveCharacter(Character character)
+        public void AddCharactersInFront(List<Character> characters)
         {
-            this.characters.Remove(character);
+            foreach (Character character in characters)
+            {
+                this.characters.Insert(0, character);
+            }
+        }
+
+        public void RemoveDeadCharacter(Character character)
+        {
+            if (character.markedForRemoval) this.characters.Remove(character);
         }
 
         public List<Character> GetCharacters()
@@ -71,15 +84,15 @@ namespace ConsoleRpg
 
         public void ShowStatus(Side side)
         {
-            foreach (Character character in this.characters)
+            for (int i = this.characters.Count - 1; i >= 0; i--)
             {
-                if (character.Side == side)
+                if (this.characters[i].Side == side)
                 {
                     if (side == Side.Enemy)
                     {
-                        Console.Write("                                     ");
+                        Console.Write("                                                ");
                     }
-                    Console.WriteLine(character.GetStatus());
+                    Console.WriteLine(this.characters[i].GetStatus());
                 }
             }
         }

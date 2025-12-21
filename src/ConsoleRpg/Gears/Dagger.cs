@@ -12,7 +12,7 @@ namespace ConsoleRpg.Gears
         {
             AttackName = "STAB";
             Effect = "1 damage";
-            Damage = 1;
+            Damage += 1;
         }
     }
 }

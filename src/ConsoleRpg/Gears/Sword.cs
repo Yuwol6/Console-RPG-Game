@@ -12,7 +12,7 @@ namespace ConsoleRpg.Gears
         {
             AttackName = "SLASH";
             Effect = "2 damage";
-            Damage = 2;
+            Damage += 2;
         }
     }
 }

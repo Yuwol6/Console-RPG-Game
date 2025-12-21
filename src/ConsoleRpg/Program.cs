@@ -1,6 +1,7 @@
 ﻿using ConsoleRpg.Characters;
 using ConsoleRpg.Gears;
 using ConsoleRpg.Controllers;
+using ConsoleRpg.Parties;
 
 namespace ConsoleRpg
 {
@@ -49,9 +50,9 @@ namespace ConsoleRpg
             TheUncodedOne theUncodedOne = new TheUncodedOne("Satan");
 
             Party allyParty = new Party(3);
+            allyParty.AddToParty(vinFletcher);
             allyParty.AddToParty(trueProgrammer);
             trueProgrammer.EquipGear(new Sword("Sword"));
-            allyParty.AddToParty(vinFletcher);
             Party enemyPartyOne = new Party(1);
             enemyPartyOne.AddToParty(skeletonOne);
             skeletonOne.EquipGear(new Dagger("Dagger"));
@@ -65,15 +66,18 @@ namespace ConsoleRpg
             Party activeEnemyParty = enemyPartyOne;
 
             CharacterManager characterManager = new CharacterManager();
-            characterManager.AddCharacters(allyParty.GetCharacters());
             characterManager.AddCharacters(enemyPartyOne.GetCharacters());
+            characterManager.AddCharacters(allyParty.GetCharacters());
 
 
             while (true)
             {
-                foreach (Character character in characterManager.GetCharacters())
+                List<Character> originalCharacters = characterManager.GetCharacters();
+                for (int i = originalCharacters.Count - 1; i >= 0; i--)
                 {
                     Console.ResetColor();
+                    Character character = originalCharacters[i];
+                    if (character.IsDead()) continue;
                     var gameEnded = characterManager.CheckWinningSide();
                     if (gameEnded.ended == true)
                     {
@@ -87,32 +91,39 @@ namespace ConsoleRpg
                             {
                                 Console.WriteLine("The heroes have cleared the first floor. They move on to the next floor.");
                                 ProgressStage(characterManager, allyParty, ref activeEnemyParty, enemyPartyTwo);
-                                continue;
+                                break;
                             }
-                            else if (characterManager.Stage == 1)
+                            else if (characterManager.Stage >= 1)
                             {
-                                Console.WriteLine("The heroes have cleared the second floor. The move on to the final floor.");
+                                Console.WriteLine("The heroes have cleared the floor. They see two doors; which door are they going through?");
+                                Console.WriteLine(@"1 - The yellow door
+2 - The black door");
+                                string doorInput = Console.ReadLine();
+                                bool breakLoop = false;
+                                switch (doorInput)
+                                {
+                                    case "1":
+                                        ProgressStage(characterManager, allyParty, ref activeEnemyParty, new RandomParty(2));
+                                        Console.WriteLine("The heroes move on through the yellow door. They see some more enemies.");
+                                        breakLoop = true;
+                                        break;
+                                    case "2":
+                                        break;
+                                    default:
+                                        Console.Write("Invalid Input. ");
+                                        break;
+                                }
+                                if (breakLoop) break;
+                                Console.WriteLine("The heroes move on through the black door. They are met with SATAN, crouching on top of a mountain of skulls.");
                                 ProgressStage(characterManager, allyParty, ref activeEnemyParty, enemyPartyThree);
-                                continue;
+                                characterManager.SetToLastStage();
+                                break;
                             }
-                            else Console.WriteLine("The heroes won and Satan was defeated! The world remains safe for now.");
+                            else Console.WriteLine("The heroes won and SATAN was defeated! The world remains safe for now.");
                         }
 
                         Environment.Exit(0); // The game is finished
                     }
-
-                    bool CharacterIsDead = false;
-                    foreach (Character deadCharacter in characterManager.GetCharacters())
-                    {
-                        if (deadCharacter.markedForRemoval == true)
-                        {
-                            characterManager.RemoveCharacter(deadCharacter);
-                            CharacterIsDead = true;
-                            break;
-                        }
-                    }
-                    if (CharacterIsDead) continue;
-                    if (character.IsDead()) continue;
 
                     DisplayStatus(characterManager, character);
 
@@ -128,6 +139,11 @@ namespace ConsoleRpg
                         ControllerTurn(enemyController, characterManager, character, activeEnemyParty);
                     }
 
+                    foreach (Character deadCharacter in characterManager.GetCharacters())
+                    {
+                        characterManager.RemoveDeadCharacter(deadCharacter);
+                    }
+
                     Console.WriteLine();
                     Thread.Sleep(500);
                 }
@@ -136,23 +152,16 @@ namespace ConsoleRpg
 
         static void ControllerTurn(PartyController partyController, CharacterManager characterManager, Character character, Party activeParty)
         {
-            if (partyController is ComputerController)
-            {
-                (partyController).TakeTurn(characterManager, character, activeParty);
-            }
-            else if (partyController is HumanController)
-            {
-                (partyController).TakeTurn(characterManager, character, activeParty);
-            }
+            partyController.TakeTurn(characterManager, character, activeParty);
         }
 
         static void DisplayStatus(CharacterManager characterManager, Character character)
         {
-            Console.WriteLine($"============================= STAGE {characterManager.Stage} =============================");
+            Console.WriteLine($"======================================== STAGE {characterManager.Stage} ========================================");
             characterManager.ShowStatus(Side.Friendly);
-            Console.WriteLine("-------------------------------- VS -------------------------------");
+            Console.WriteLine("------------------------------------------- VS ------------------------------------------");
             characterManager.ShowStatus(Side.Enemy);
-            Console.WriteLine("===================================================================");
+            Console.WriteLine("=========================================================================================");
 
             Console.WriteLine($"It is {character}'s turn...");
         }
@@ -162,7 +171,7 @@ namespace ConsoleRpg
             characterManager.IncreaseStage();
             allyParty.CollectPotions(activeEnemyParty.PotionCount);
             allyParty.CollectGears(activeEnemyParty.GetGears());
-            characterManager.AddCharacters(enemyPartyNum.GetCharacters());
+            characterManager.AddCharactersInFront(enemyPartyNum.GetCharacters());
             activeEnemyParty = enemyPartyNum;
         }
     }

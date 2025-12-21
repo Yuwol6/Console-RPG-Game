@@ -7,12 +7,12 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Linq;
 
-namespace ConsoleRpg
+namespace ConsoleRpg.Parties
 {
     public class Party
     {
-        private List<Character> party = new List<Character>();
-        private List<Gear> gears = new List<Gear>();
+        protected List<Character> party = new List<Character>();
+        protected List<Gear> gears = new List<Gear>();
         public int PotionCount { get; private set; }
 
         public Party(int potionCount)
