@@ -24,9 +24,9 @@ It is recommended that this game is run on full screen.
 ## Example Gameplay
 ```text
 =========================================== STAGE 1 ===========================================
-HE  25/25  Sword (Unique)
+HERO  25/25  Sword (Unique)
 LEGOLAS  15/15
 ---------------------------------------------- VS ---------------------------------------------
-                                                   JAKE THE SKELETON  5/5
+                                                   JAKE THE SKELETON  5/5  Dagger (Rare)
                                                    EMMA THE SKELETON  5/5
 ===============================================================================================
