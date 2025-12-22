@@ -33,13 +33,13 @@ namespace ConsoleRpg.Parties
         public void CollectPotions(int potionsToAdd)
         {
             PotionCount += potionsToAdd;
-            if (potionsToAdd > 0) Console.WriteLine($"The hero party has collected {potionsToAdd} potion/s from the battle.");
+            if (potionsToAdd > 0) Console.WriteLine($"The hero party has collected {potionsToAdd} potion/s from the last battle.");
         }
 
         public void CollectGears(List<Gear> gears)
         {
             this.gears.AddRange(gears);
-            if (gears.Count > 0) Console.WriteLine($"The hero party has collected {gears.Count()} gear/s from the battle.");
+            if (gears.Count > 0) Console.WriteLine($"The hero party has collected {gears.Count()} gear/s from the last battle.");
         }
 
         public void UseItem(Item item, Character character)

@@ -6,16 +6,16 @@ using System.Threading.Tasks;
 
 namespace ConsoleRpg.Characters
 {
-    public class TheUncodedOne : Character
+    public class Satan : Character
     {
         private Side side;
         private Random random = new Random();
-        public TheUncodedOne(string name) : base(name)
+        public Satan(string name) : base(name)
         {
             side = Side.Enemy;
             attackName = "UNRAVELING ATTACK";
-            maxHP = 15;
-            HP = 15;
+            maxHP = 36;
+            HP = 36;
         }
 
         public override void Attack(Character target)

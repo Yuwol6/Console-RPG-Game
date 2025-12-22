@@ -6,12 +6,12 @@ using System.Threading.Tasks;
 
 namespace ConsoleRpg.Characters
 {
-    public class VinFletcher : Character
+    public class Legolas : Character
     {
         private Side side;
         private Random random = new Random();
 
-        public VinFletcher(string name) : base(name)
+        public Legolas(string name) : base(name)
         {
             side = Side.Friendly;
             attackName = "PUNCH";

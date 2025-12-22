@@ -6,11 +6,11 @@ using System.Threading.Tasks;
 
 namespace ConsoleRpg.Characters
 {
-    public class TrueProgrammer : Character
+    public class Hero : Character
     {
         private Side side;
 
-        public TrueProgrammer(string name) : base(name)
+        public Hero(string name) : base(name)
         {
             side = Side.Friendly;
             attackName = "PUNCH";

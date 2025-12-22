@@ -10,8 +10,8 @@ namespace ConsoleRpg
         static void Main(string[] args)
         {
             Console.Title = "ConsoleRPG";
-
-            Console.Write("You are the hero destined to hunt down Satan deep inside the dungeon. What is your name? "); // entry setting inputs
+            // entry settings
+            Console.Write("You are the hero destined to hunt down Satan deep inside the dungeon. What is your name? ");
             string? playerName = Console.ReadLine();
             if (string.IsNullOrEmpty(playerName)) playerName = "Unnamed";
 
@@ -24,7 +24,6 @@ namespace ConsoleRpg
             PartyController friendlyController = DecideController(Side.Friendly, friendlyPartyChoice);
             PartyController enemyController = DecideController(Side.Enemy, enemyPartyChoice);
             Console.WriteLine();
-
 
             PartyController DecideController(Side side, string input)
             {
@@ -42,17 +41,18 @@ namespace ConsoleRpg
                 }
             }
 
-            TrueProgrammer trueProgrammer = new TrueProgrammer(playerName);
-            VinFletcher vinFletcher = new VinFletcher("Legolas");
+            #region Party Settings
+            Hero hero = new Hero(playerName);
+            Legolas legolas = new Legolas("Legolas");
             Skeleton skeletonOne = new Skeleton("Tim the skeleton");
             Skeleton skeletonTwo = new Skeleton("Jake the skeleton");
             Skeleton skeletonThree = new Skeleton("Emma the skeleton");
-            TheUncodedOne theUncodedOne = new TheUncodedOne("Satan");
+            Satan satan = new Satan("Satan");
 
             Party allyParty = new Party(3);
-            allyParty.AddToParty(vinFletcher);
-            allyParty.AddToParty(trueProgrammer);
-            trueProgrammer.EquipGear(new Sword("Sword"));
+            allyParty.AddToParty(legolas);
+            allyParty.AddToParty(hero);
+            hero.EquipGear(new Sword("Sword"));
             Party enemyPartyOne = new Party(1);
             enemyPartyOne.AddToParty(skeletonOne);
             skeletonOne.EquipGear(new Dagger("Dagger"));
@@ -62,12 +62,14 @@ namespace ConsoleRpg
             enemyPartyTwo.AddGear(new Dagger("Dagger"));
             enemyPartyTwo.AddGear(new Dagger("Dagger"));
             Party enemyPartyThree = new Party(1);
-            enemyPartyThree.AddToParty(theUncodedOne);
+            enemyPartyThree.AddToParty(satan);
+            satan.EquipGear(new Trident("Hellforged Trident"));
             Party activeEnemyParty = enemyPartyOne;
 
             CharacterManager characterManager = new CharacterManager();
             characterManager.AddCharacters(enemyPartyOne.GetCharacters());
             characterManager.AddCharacters(allyParty.GetCharacters());
+            #endregion
 
 
             while (true)
@@ -93,7 +95,7 @@ namespace ConsoleRpg
                                 ProgressStage(characterManager, allyParty, ref activeEnemyParty, enemyPartyTwo);
                                 break;
                             }
-                            else if (characterManager.Stage >= 1)
+                            else if (characterManager.Stage >= 1 && characterManager.Stage < 66)
                             {
                                 Console.WriteLine("The heroes have cleared the floor. They see two doors; which door are they going through?");
                                 Console.WriteLine(@"1 - The yellow door
@@ -132,7 +134,6 @@ namespace ConsoleRpg
                         Console.ForegroundColor = ConsoleColor.Green;
                         ControllerTurn(friendlyController, characterManager, character, allyParty);
                     }
-
                     if (enemyController.IsSameSide(character))
                     {
                         Console.ForegroundColor = ConsoleColor.Red;
@@ -157,11 +158,11 @@ namespace ConsoleRpg
 
         static void DisplayStatus(CharacterManager characterManager, Character character)
         {
-            Console.WriteLine($"======================================== STAGE {characterManager.Stage} ========================================");
+            Console.WriteLine($"=========================================== STAGE {characterManager.Stage} ===========================================");
             characterManager.ShowStatus(Side.Friendly);
-            Console.WriteLine("------------------------------------------- VS ------------------------------------------");
+            Console.WriteLine("---------------------------------------------- VS ---------------------------------------------");
             characterManager.ShowStatus(Side.Enemy);
-            Console.WriteLine("=========================================================================================");
+            Console.WriteLine("===============================================================================================");
 
             Console.WriteLine($"It is {character}'s turn...");
         }

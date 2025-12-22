@@ -24,7 +24,7 @@ namespace ConsoleRpg
 
         public void SetToLastStage()
         {
-            Stage = -1;
+            Stage = 66;
         }
 
         public void AddCharacters(List<Character> characters)
@@ -90,7 +90,7 @@ namespace ConsoleRpg
                 {
                     if (side == Side.Enemy)
                     {
-                        Console.Write("                                                ");
+                        Console.Write("                                                   ");
                     }
                     Console.WriteLine(this.characters[i].GetStatus());
                 }

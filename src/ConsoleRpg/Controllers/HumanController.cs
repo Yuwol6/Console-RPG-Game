@@ -23,7 +23,7 @@ namespace ConsoleRpg.Controllers
 3 - Use item
 4 - Equip gear
 5 - Gear attack");
-            if (character is VinFletcher)
+            if (character is Legolas)
             {
                 Console.WriteLine($"6 - Quick Shot");
             }
@@ -57,7 +57,7 @@ namespace ConsoleRpg.Controllers
                 case "6":
                     try
                     {
-                        ((VinFletcher)character).QuickShot(characterManager.GetOppositeSideCharacter(character));
+                        ((Legolas)character).QuickShot(characterManager.GetOppositeSideCharacter(character));
                     } catch (Exception)
                     {
                         Console.WriteLine($"Invalid Option. {character} will do nothing.");
