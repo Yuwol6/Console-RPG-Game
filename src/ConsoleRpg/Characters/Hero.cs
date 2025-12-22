@@ -9,6 +9,8 @@ namespace ConsoleRpg.Characters
     public class Hero : Character
     {
         private Side side;
+        private int level;
+        private int punchDamage = 1;
 
         public Hero(string name) : base(name)
         {
@@ -20,8 +22,14 @@ namespace ConsoleRpg.Characters
         public override void Attack(Character target)
         {
             base.Attack(target);
-            Console.WriteLine($"{attackName} dealt 1 damage to {target}.");
-            target.GetHit(1);
+            Console.WriteLine($"{attackName} dealt {punchDamage} damage to {target}.");
+            target.GetHit(punchDamage);
+        }
+
+        public void LevelUp()
+        {
+            Console.WriteLine("The hero has levelled up and will do one more damage on PUNCH!");
+            punchDamage++;
         }
 
         public override Side Side => side;

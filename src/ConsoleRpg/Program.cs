@@ -105,7 +105,7 @@ namespace ConsoleRpg
                                 switch (doorInput)
                                 {
                                     case "1":
-                                        ProgressStage(characterManager, allyParty, ref activeEnemyParty, new RandomParty(2));
+                                        ProgressStage(characterManager, allyParty, ref activeEnemyParty, new RandomParty(1));
                                         Console.WriteLine("The heroes move on through the yellow door. They see some more enemies.");
                                         breakLoop = true;
                                         break;
@@ -172,6 +172,7 @@ namespace ConsoleRpg
             characterManager.IncreaseStage();
             allyParty.CollectPotions(activeEnemyParty.PotionCount);
             allyParty.CollectGears(activeEnemyParty.GetGears());
+            characterManager.LevelUpHero();
             characterManager.AddCharactersInFront(enemyPartyNum.GetCharacters());
             activeEnemyParty = enemyPartyNum;
         }

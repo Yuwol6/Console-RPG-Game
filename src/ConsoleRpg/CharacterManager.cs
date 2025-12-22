@@ -96,5 +96,13 @@ namespace ConsoleRpg
                 }
             }
         }
+
+        public void LevelUpHero()
+        {
+            foreach (Character character in this.characters)
+            {
+                if (character is Hero hero) hero.LevelUp();
+            }
+        }
     }
 }
