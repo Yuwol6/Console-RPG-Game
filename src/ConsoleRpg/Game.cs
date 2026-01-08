@@ -40,7 +40,7 @@ namespace ConsoleRpg
                             if (gameSettings.CharacterManager.Stage == 0)
                             {
                                 Console.WriteLine("The heroes have cleared the first floor. They move on to the next floor.");
-                                ProgressStage(gameSettings.CharacterManager, gameSettings.AllyParty, gameSettings.EnemyPartyTwo);
+                                ProgressStage(gameSettings.EnemyPartyTwo);
                                 break;
                             }
                             else if (gameSettings.CharacterManager.Stage >= 1 && gameSettings.CharacterManager.Stage < 66)
@@ -53,7 +53,7 @@ namespace ConsoleRpg
                                 switch (doorInput)
                                 {
                                     case "1":
-                                        ProgressStage(gameSettings.CharacterManager, gameSettings.AllyParty, new RandomParty(1));
+                                        ProgressStage(new RandomParty(1));
                                         Console.WriteLine("The heroes move on through the yellow door. They see some more enemies.");
                                         breakLoop = true;
                                         break;
@@ -65,28 +65,28 @@ namespace ConsoleRpg
                                 }
                                 if (breakLoop) break;
                                 Console.WriteLine("The heroes move on through the black door. They are met with SATAN, crouching on top of a mountain of skulls.");
-                                ProgressStage(gameSettings.CharacterManager, gameSettings.AllyParty, gameSettings.EnemyPartyThree);
+                                ProgressStage(gameSettings.EnemyPartyThree);
                                 gameSettings.CharacterManager.SetToLastStage();
                                 break;
                             }
                             else Console.WriteLine("The heroes won and SATAN was defeated! The world remains safe for now.");
                         }
 
-                        Environment.Exit(0); // The game is finished
+                        return; // The game is finished
                     }
 
-                    DisplayStatus(gameSettings.CharacterManager, character);
+                    DisplayStatus(character);
 
                     if (gameSettings.FriendlyController.IsSameSide(character))
                     {
                         Console.ForegroundColor = ConsoleColor.Green;
-                        ControllerTurn(gameSettings.FriendlyController, gameSettings.CharacterManager, character, gameSettings.AllyParty);
+                        ControllerTurn(gameSettings.FriendlyController, character, gameSettings.AllyParty);
                     }
                     if (gameSettings.EnemyController.IsSameSide(character))
                     {
                         Console.ForegroundColor = ConsoleColor.Red;
-                        Thread.Sleep(1000);
-                        ControllerTurn(gameSettings.EnemyController, gameSettings.CharacterManager, character, gameSettings.ActiveEnemyParty);
+                        Thread.Sleep(600);
+                        ControllerTurn(gameSettings.EnemyController, character, gameSettings.ActiveEnemyParty);
                     }
 
                     foreach (Character deadCharacter in gameSettings.CharacterManager.GetCharacters())
@@ -100,31 +100,31 @@ namespace ConsoleRpg
             }
         }
 
-        private void ControllerTurn(PartyController partyController, CharacterManager characterManager, Character character, Party activeParty)
+        private void ControllerTurn(PartyController partyController, Character character, Party activeParty)
         {
-            partyController.TakeTurn(characterManager, character, activeParty);
+            partyController.TakeTurn(gameSettings.CharacterManager, character, activeParty);
         }
 
-        private void DisplayStatus(CharacterManager characterManager, Character character)
+        private void DisplayStatus(Character character)
         {
             Console.WriteLine();
             Console.WriteLine();
-            Console.WriteLine($"=========================================== STAGE {characterManager.Stage} ===========================================");
-            characterManager.ShowStatus(Side.Friendly);
+            Console.WriteLine($"=========================================== STAGE {gameSettings.CharacterManager.Stage} ===========================================");
+            gameSettings.CharacterManager.ShowStatus(Side.Friendly);
             Console.WriteLine("---------------------------------------------- VS ---------------------------------------------");
-            characterManager.ShowStatus(Side.Enemy);
+            gameSettings.CharacterManager.ShowStatus(Side.Enemy);
             Console.WriteLine("===============================================================================================");
 
             Console.WriteLine($"It is {character}'s turn...");
         }
 
-        private void ProgressStage(CharacterManager characterManager, Party allyParty, Party enemyPartyNum)
+        private void ProgressStage(Party enemyPartyNum)
         {
-            characterManager.IncreaseStage();
-            allyParty.CollectPotions(gameSettings.ActiveEnemyParty.PotionCount);
-            allyParty.CollectGears(gameSettings.ActiveEnemyParty.GetGears());
-            characterManager.LevelUpHero();
-            characterManager.AddCharactersInFront(enemyPartyNum.GetCharacters());
+            gameSettings.CharacterManager.IncreaseStage();
+            gameSettings.AllyParty.CollectPotions(gameSettings.ActiveEnemyParty.PotionCount);
+            gameSettings.AllyParty.CollectGears(gameSettings.ActiveEnemyParty.GetGears());
+            gameSettings.CharacterManager.LevelUpHero();
+            gameSettings.CharacterManager.AddCharactersInFront(enemyPartyNum.GetCharacters());
             gameSettings.SetActiveEnemyParty(enemyPartyNum);
         }
     }
