@@ -80,5 +80,17 @@ namespace ConsoleRpg.Tests
             legolas.GearAttack(skeleton);
             Assert.True(skeleton.IsDead());
         }
+
+        [Fact]
+        public void LegolasHPTest()
+        {
+            legolas.DrinkPotion();
+            Assert.Equal("TESTING LEGOLAS  15/15", legolas.GetStatus());
+            Assert.False(legolas.IsUnderHalfHP());
+
+            legolas.GetHit(100);
+            Assert.Equal("TESTING LEGOLAS  0/15", legolas.GetStatus());
+            Assert.True(legolas.IsDead());
+        }
     }
 }
