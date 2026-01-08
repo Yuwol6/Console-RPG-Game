@@ -75,6 +75,23 @@ namespace ConsoleRpg.Tests
         public void SkeletonGearStatusTest()
         {
             Assert.Equal("TESTING SKELETON ONE  5/5", skeletonOne.GetStatus());
+
+            skeletonOne.EquipGear(new Dagger("Dagger"));
+            Rank daggerRank = skeletonOne.GetGear().GearRank;
+
+            Assert.Equal($"TESTING SKELETON ONE  5/5  Dagger ({daggerRank})", skeletonOne.GetStatus());
+        }
+
+        [Fact]
+        public void SkeletonHPTest()
+        {
+            skeletonOne.DrinkPotion();
+            Assert.Equal("TESTING SKELETON ONE  5/5", skeletonOne.GetStatus());
+            Assert.False(skeletonOne.IsUnderHalfHP());
+
+            skeletonOne.GetHit(100);
+            Assert.Equal("TESTING SKELETON ONE  0/5", skeletonOne.GetStatus());
+            Assert.True(skeletonOne.IsDead());
         }
     }
 }
