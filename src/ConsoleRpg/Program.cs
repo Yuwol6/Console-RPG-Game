@@ -137,6 +137,7 @@ namespace ConsoleRpg
                     if (enemyController.IsSameSide(character))
                     {
                         Console.ForegroundColor = ConsoleColor.Red;
+                        Thread.Sleep(1000);
                         ControllerTurn(enemyController, characterManager, character, activeEnemyParty);
                     }
 
@@ -158,6 +159,8 @@ namespace ConsoleRpg
 
         static void DisplayStatus(CharacterManager characterManager, Character character)
         {
+            Console.WriteLine();
+            Console.WriteLine();
             Console.WriteLine($"=========================================== STAGE {characterManager.Stage} ===========================================");
             characterManager.ShowStatus(Side.Friendly);
             Console.WriteLine("---------------------------------------------- VS ---------------------------------------------");

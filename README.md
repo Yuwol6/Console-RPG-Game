@@ -30,3 +30,10 @@ LEGOLAS  15/15
                                                    JAKE THE SKELETON  5/5  Dagger (Rare)
                                                    EMMA THE SKELETON  5/5
 ===============================================================================================
+It is HERO's turn...
+1 - Standard attack (PUNCH)
+2 - Do nothing
+3 - Use item
+4 - Equip gear
+5 - Gear attack
+What do you want to do?
