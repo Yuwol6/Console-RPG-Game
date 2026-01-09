@@ -127,5 +127,43 @@ namespace ConsoleRpg
             gameSettings.CharacterManager.AddCharactersInFront(enemyPartyNum.GetCharacters());
             gameSettings.SetActiveEnemyParty(enemyPartyNum);
         }
+
+
+        public void ProgressStageSetActiveEnemyParty(bool isTesting, int partyNumber)
+        {
+            if (!isTesting) return;
+            foreach (Character enemy in gameSettings.ActiveEnemyParty.GetCharacters())
+            {
+                enemy.GetHit(100);
+            }
+
+            // insert enemy party
+            switch (partyNumber)
+            {
+                case 2:
+                    ProgressStage(gameSettings.EnemyPartyTwo);
+                    break;
+                case 3:
+                    ProgressStage(gameSettings.EnemyPartyThree);
+                    break;
+                default:
+                    return;
+            }
+        }
+
+        public List<Character> GetActiveEnemyPartyCharacters()
+        {
+            return gameSettings.ActiveEnemyParty.GetCharacters();
+        }
+
+        public int GetAllyPotionCount()
+        {
+            return gameSettings.AllyParty.PotionCount;
+        }
+
+        public int GetAllyGearsCount()
+        {
+            return gameSettings.AllyParty.GetGears().Count;
+        }
     }
 }

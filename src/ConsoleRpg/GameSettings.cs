@@ -26,6 +26,19 @@ namespace ConsoleRpg
             CreatePartySettings();
         }
 
+        // constructor for testing
+        public GameSettings(bool skipConsoleInput)
+        {
+            if (skipConsoleInput)
+            {
+                playerName = "Testing Player";
+                FriendlyController = DecideController(Side.Friendly, "2");
+                EnemyController = DecideController(Side.Enemy, "2");
+
+                CreatePartySettings();
+            }
+        }
+
         private void CreateInitialSettings()
         {
             Console.Write("You are the hero destined to hunt down Satan deep inside the dungeon. What is your name? ");
