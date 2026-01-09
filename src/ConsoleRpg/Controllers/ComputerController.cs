@@ -24,13 +24,13 @@ namespace ConsoleRpg.Controllers
             {
                 activeParty.UseItem(Item.Potion, character);
             }
-            else if (!character.hasGearOn() && activeParty.HasGear() && gearChance == 1)
+            else if (!character.HasGearOn() && activeParty.HasGear() && gearChance == 1)
             {
                 Console.WriteLine($"{character} has equipped {activeParty.GetFirstGear()}");
                 character.EquipGear(activeParty.GetFirstGear());
                 activeParty.RemoveGear(activeParty.GetFirstGear());
             }
-            else if (character.hasGearOn())
+            else if (character.HasGearOn())
             {
                 character.GearAttack(characterManager.GetOppositeSideCharacter(character));
             }

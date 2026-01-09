@@ -103,7 +103,7 @@ namespace ConsoleRpg.Controllers
                 return;
             }
             // at this point, the player has chosen a valid Gear to equip
-            if (character.hasGearOn())
+            if (character.HasGearOn())
             {
                 Console.WriteLine($"{character}'s current gear, {character.GetGear()}, will be returned to the party inventory.");
                 activeParty.AddGear(character.GetGear());
