@@ -28,7 +28,7 @@ namespace ConsoleRpg.Tests
         }
 
         [Fact]
-        public void SatanAttackTest()
+        public void Satan_Attacks_Successfully()
         {
             satan.Attack(hero);
             Assert.True(hero.GetStatus() == "TESTING HERO  25/25" || hero.GetStatus() == "TESTING HERO  24/25" || 
@@ -41,7 +41,7 @@ namespace ConsoleRpg.Tests
         }
 
         [Fact]
-        public void SatanGearAttackTest()
+        public void Satan_EquipsGear_AndAttacksStronger()
         {
             satan.EquipGear(new Trident("Hellforged Trident"));
             Assert.True(satan.GetGear().GearRank == Rank.Legendary);
@@ -59,7 +59,7 @@ namespace ConsoleRpg.Tests
         }
 
         [Fact]
-        public void SatanHPTest()
+        public void Satan_HP_StaysInValidRange()
         {
             satan.DrinkPotion();
             Assert.Equal("TESTING SATAN  36/36", satan.GetStatus());

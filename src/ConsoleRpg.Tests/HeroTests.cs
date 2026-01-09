@@ -27,7 +27,7 @@ namespace ConsoleRpg.Tests
         }
 
         [Fact]
-        public void HeroLevelUpTest()
+        public void Hero_LevelsUp_AndAttacksStronger()
         {
             for (int i = 0; i < 4; i++)
             {
@@ -46,7 +46,7 @@ namespace ConsoleRpg.Tests
         }
 
         [Fact]
-        public void HeroGearAttackTest()
+        public void Hero_EquipsGear_AndAttacksStronger()
         {
             hero.EquipGear(new Sword("Sword"));
             Rank swordRank = hero.GetGear().GearRank;
@@ -71,7 +71,7 @@ namespace ConsoleRpg.Tests
         }
 
         [Fact]
-        public void HeroGearStatusTest()
+        public void Hero_EquipsGear_Successfully()
         {
             Assert.Equal("TESTING HERO  25/25", hero.GetStatus());
 
@@ -82,7 +82,7 @@ namespace ConsoleRpg.Tests
         }
 
         [Fact]
-        public void HeroHPTest()
+        public void Hero_HP_StaysInValidRange()
         {
             hero.DrinkPotion();
             Assert.Equal("TESTING HERO  25/25", hero.GetStatus());

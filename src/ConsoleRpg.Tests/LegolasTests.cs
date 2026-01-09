@@ -28,7 +28,7 @@ namespace ConsoleRpg.Tests
         }
 
         [Fact]
-        public void LegolasAttackTest()
+        public void Legolas_Attacks_Successfully()
         {
             legolas.Attack(skeleton);
             legolas.Attack(skeleton);
@@ -41,7 +41,7 @@ namespace ConsoleRpg.Tests
         }
 
         [Fact]
-        public void QuickShotTest()
+        public void Legolas_QuickShots_Successfully()
         {
             legolas.QuickShot(skeleton);
             Assert.True(skeleton.GetStatus() == "TESTING SKELETON  5/5" || skeleton.GetStatus() == "TESTING SKELETON  2/5");
@@ -52,7 +52,7 @@ namespace ConsoleRpg.Tests
         }
 
         [Fact]
-        public void LegolasGearAttackTest()
+        public void Legolas_EquipsGear_AndAttacksStronger()
         {
             legolas.EquipGear(new Dagger("Dagger"));
             Rank daggerRank = legolas.GetGear().GearRank;
@@ -82,7 +82,7 @@ namespace ConsoleRpg.Tests
         }
 
         [Fact]
-        public void LegolasHPTest()
+        public void Legolas_HP_StaysInValidRange()
         {
             legolas.DrinkPotion();
             Assert.Equal("TESTING LEGOLAS  15/15", legolas.GetStatus());

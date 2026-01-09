@@ -19,7 +19,7 @@ namespace ConsoleRpg.Tests
         }
 
         [Fact]
-        public void ProgressStageSetActivePartyTest()
+        public void ProgressStage_SetsActiveParty()
         {
             List<Character> activeEnemyParty;
             string partyStatus = "";
@@ -39,7 +39,7 @@ namespace ConsoleRpg.Tests
         }
 
         [Fact]
-        public void ProgressStageCollectPotionsTest()
+        public void ProgressStage_CollectsPotions()
         {
             Assert.Equal(3, testGame.GetAllyPotionCount());
             testGame.ProgressStageSetActiveEnemyParty(true, 2);
@@ -50,7 +50,7 @@ namespace ConsoleRpg.Tests
         }
 
         [Fact]
-        public void ProgressStageCollectGearsTest()
+        public void ProgressStage_CollectsGears()
         {
             Assert.Equal(0, testGame.GetAllyGearsCount());
             testGame.ProgressStageSetActiveEnemyParty(true, 2);

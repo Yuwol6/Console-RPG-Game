@@ -27,7 +27,7 @@ namespace ConsoleRpg.Tests
         }
 
         [Fact]
-        public void SkeletonAttackTest()
+        public void Skeleton_Attacks_Successfully()
         {
             skeletonOne.Attack(skeletonTwo);
             Assert.True(skeletonTwo.GetStatus() == "TESTING SKELETON TWO  5/5" || skeletonTwo.GetStatus() == "TESTING SKELETON TWO  4/5");
@@ -42,7 +42,7 @@ namespace ConsoleRpg.Tests
         }
 
         [Fact]
-        public void SkeletonGearAttackTest()
+        public void Skeleton_EquipsGear_AndAttacksStronger()
         {
             skeletonOne.EquipGear(new Dagger("Dagger"));
             Rank daggerRank = skeletonOne.GetGear().GearRank;
@@ -72,7 +72,7 @@ namespace ConsoleRpg.Tests
         }
 
         [Fact]
-        public void SkeletonGearStatusTest()
+        public void Skeleton_EquipsGear_Successfully()
         {
             Assert.Equal("TESTING SKELETON ONE  5/5", skeletonOne.GetStatus());
 
@@ -83,7 +83,7 @@ namespace ConsoleRpg.Tests
         }
 
         [Fact]
-        public void SkeletonHPTest()
+        public void Skeleton_HP_StaysInValidRange()
         {
             skeletonOne.DrinkPotion();
             Assert.Equal("TESTING SKELETON ONE  5/5", skeletonOne.GetStatus());
