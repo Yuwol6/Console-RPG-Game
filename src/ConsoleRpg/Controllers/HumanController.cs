@@ -9,13 +9,20 @@ using System.Threading.Tasks;
 
 namespace ConsoleRpg.Controllers
 {
+    /// <summary>
+    /// Represents a controller that takes human input to take turns for characters.
+    /// </summary>
     public class HumanController : PartyController
     {
-        public HumanController(Side side) : base(side)
-        {
+        public HumanController(Side side) : base(side) {}
 
-        }
-
+        /// <summary>
+        /// Executes a turn for a character using human input.
+        /// </summary>
+        /// <param name="characterManager">Provides access to the active characters in the game.</param>
+        /// <param name="character">The character taking the turn.</param>
+        /// <param name="activeParty">The party of the character.</param>
+        /// <remarks>The character will do nothing upon invalid human input.</remarks>
         public override void TakeTurn(CharacterManager characterManager, Character character, Party activeParty)
         {
             Console.WriteLine(@$"1 - Standard attack ({character.GetAttackName()})
@@ -70,6 +77,12 @@ namespace ConsoleRpg.Controllers
             }
         }
 
+        /// <summary>
+        /// Equips gear on a character using human input.
+        /// </summary>
+        /// <param name="characterManager">Provides access to the active characters in the game.</param>
+        /// <param name="character">The character taking the turn.</param>
+        /// <param name="activeParty">The party of the character.</param>
         public void EquipGear(CharacterManager characterManager, Character character, Party activeParty)
         {
             if (!activeParty.HasGear())

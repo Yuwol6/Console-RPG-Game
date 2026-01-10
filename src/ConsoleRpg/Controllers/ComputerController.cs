@@ -8,14 +8,22 @@ using System.Threading.Tasks;
 
 namespace ConsoleRpg.Controllers
 {
+    /// <summary>
+    /// Represents a controller that automatically takes turns for characters.
+    /// </summary>
     public class ComputerController : PartyController
     {
         Random random = new Random();
-        public ComputerController(Side side) : base(side)
-        {
-            
-        }
+        public ComputerController(Side side) : base(side) {}
 
+        /// <summary>
+        /// Executes an automated turn for a character using a prioritized set of actions.
+        /// </summary>
+        /// <param name="characterManager">Provides access to the active characters in the game.</param>
+        /// <param name="character">The character taking the turn.</param>
+        /// <param name="activeParty">The party of the character.</param>
+        /// <remarks>Action priority: drink a potion, equip gear, use gear attack, then basic attack. Some actions may be skipped 
+        /// based on chance or availability.</remarks>
         public override void TakeTurn(CharacterManager characterManager, Character character, Party activeParty)
         {
             int potionChance = random.Next(4);
