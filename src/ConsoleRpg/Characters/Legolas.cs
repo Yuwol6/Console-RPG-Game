@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace ConsoleRpg.Characters
 {
+    /// <summary>
+    /// Represents an allied sidekick character.
+    /// </summary>
     public class Legolas : Character
     {
         private Side side;
@@ -25,6 +28,10 @@ namespace ConsoleRpg.Characters
             target.GetHit(1);
         }
 
+        /// <summary>
+        /// Performs a character-specific attack that has a chance to miss and deals 3 damage on a hit.
+        /// </summary>
+        /// <param name="target">The character being attacked.</param>
         public void QuickShot(Character target)
         {
             int chance = random.Next(11);

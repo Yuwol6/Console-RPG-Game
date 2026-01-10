@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace ConsoleRpg.Characters
 {
+    /// <summary>
+    /// Represents a character of the enemy party.
+    /// </summary>
     public class Skeleton : Character
     {
         private Side side;
@@ -19,6 +22,10 @@ namespace ConsoleRpg.Characters
             HP = 5;
         }
 
+        /// <summary>
+        /// Performs the basic attack for the skeleton that has a chance to miss and deals 1 damage on a hit.
+        /// </summary>
+        /// <param name="target">The character being attacked.</param>
         public override void Attack(Character target)
         {
             int damage = random.Next(2);

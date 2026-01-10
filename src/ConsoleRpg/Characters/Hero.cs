@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace ConsoleRpg.Characters
 {
+    /// <summary>
+    /// Represents the main character of the ally party.
+    /// </summary>
     public class Hero : Character
     {
         private Side side;
@@ -26,6 +29,9 @@ namespace ConsoleRpg.Characters
             target.GetHit(punchDamage);
         }
 
+        /// <summary>
+        /// Levels up the hero, increasing the damage of its basic attack.
+        /// </summary>
         public void LevelUp()
         {
             Console.WriteLine("The hero has levelled up and will do one more damage on PUNCH!");

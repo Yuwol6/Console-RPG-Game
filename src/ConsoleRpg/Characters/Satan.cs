@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace ConsoleRpg.Characters
 {
+    /// <summary>
+    /// Represents the boss character of the enemy party. The game ends if this character is defeated.
+    /// </summary>
     public class Satan : Character
     {
         private Side side;
