@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace ConsoleRpg.Gears
 {
+    /// <summary>
+    /// Represents a type of gear with 1 base damage.
+    /// </summary>
     public class Dagger : Gear
     {
         public Dagger(string name) : base(name)
