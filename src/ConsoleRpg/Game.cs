@@ -173,7 +173,7 @@ namespace ConsoleRpg
         /// </summary>
         /// <param name="isTesting">Checks that the method is used for testing.</param>
         /// <param name="partyNumber">The enemy party to activate for the next stage.</param>
-        public void ProgressStageSetActiveEnemyParty(bool isTesting, int partyNumber)
+        internal void ProgressStageSetActiveEnemyParty(bool isTesting, int partyNumber)
         {
             if (!isTesting) return;
             foreach (Character enemy in gameSettings.ActiveEnemyParty.GetCharacters())
@@ -199,7 +199,7 @@ namespace ConsoleRpg
         /// Gets the active enemy party characters for test scenarios.
         /// </summary>
         /// <returns>The list of active enemy party characters.</returns>
-        public List<Character> GetActiveEnemyPartyCharacters()
+        internal List<Character> GetActiveEnemyPartyCharacters()
         {
             return gameSettings.ActiveEnemyParty.GetCharacters();
         }
@@ -208,7 +208,7 @@ namespace ConsoleRpg
         /// Gets the number of available potions in the ally party for test scenarios.
         /// </summary>
         /// <returns>The number of available potions.</returns>
-        public int GetAllyPotionCount()
+        internal int GetAllyPotionCount()
         {
             return gameSettings.AllyParty.PotionCount;
         }
@@ -217,7 +217,7 @@ namespace ConsoleRpg
         /// Gets the number of available gear in the ally party for test scenarios.
         /// </summary>
         /// <returns>The number of available gear.</returns>
-        public int GetAllyGearsCount()
+        internal int GetAllyGearsCount()
         {
             return gameSettings.AllyParty.GetGears().Count;
         }
