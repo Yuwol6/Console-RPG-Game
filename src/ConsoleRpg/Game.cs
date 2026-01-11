@@ -13,6 +13,7 @@ namespace ConsoleRpg
     public class Game
     {
         private GameSettings gameSettings;
+        public int Stage { get; private set; } = 0;
         public Game(GameSettings gameSettings)
         {
             this.gameSettings = gameSettings;
@@ -37,13 +38,13 @@ namespace ConsoleRpg
                         }
                         else
                         {
-                            if (gameSettings.CharacterManager.Stage == 0)
+                            if (Stage == 0)
                             {
                                 Console.WriteLine("The heroes have cleared the first floor. They move on to the next floor.");
                                 ProgressStage(gameSettings.EnemyPartyTwo);
                                 break;
                             }
-                            else if (gameSettings.CharacterManager.Stage >= 1 && gameSettings.CharacterManager.Stage < 66)
+                            else if (Stage >= 1 && Stage < 66)
                             {
                                 Console.WriteLine("The heroes have cleared the floor. They see two doors; which door are they going through?");
                                 Console.WriteLine(@"1 - The yellow door
@@ -66,7 +67,7 @@ namespace ConsoleRpg
                                 if (breakLoop) break;
                                 Console.WriteLine("The heroes move on through the black door. They are met with SATAN, crouching on top of a mountain of skulls.");
                                 ProgressStage(gameSettings.EnemyPartyThree);
-                                gameSettings.CharacterManager.SetToLastStage();
+                                SetToLastStage();
                                 break;
                             }
                             else Console.WriteLine("The heroes won and SATAN was defeated! The world remains safe for now.");
@@ -109,7 +110,7 @@ namespace ConsoleRpg
         {
             Console.WriteLine();
             Console.WriteLine();
-            Console.WriteLine($"=========================================== STAGE {gameSettings.CharacterManager.Stage} ===========================================");
+            Console.WriteLine($"=========================================== STAGE {Stage} ===========================================");
             gameSettings.CharacterManager.ShowStatus(Side.Friendly);
             Console.WriteLine("---------------------------------------------- VS ---------------------------------------------");
             gameSettings.CharacterManager.ShowStatus(Side.Enemy);
@@ -120,7 +121,7 @@ namespace ConsoleRpg
 
         private void ProgressStage(Party enemyPartyNum)
         {
-            gameSettings.CharacterManager.IncreaseStage();
+            IncreaseStage();
             gameSettings.AllyParty.CollectPotions(gameSettings.ActiveEnemyParty.PotionCount);
             gameSettings.AllyParty.CollectGears(gameSettings.ActiveEnemyParty.GetGears());
             gameSettings.CharacterManager.LevelUpHero();
@@ -128,6 +129,24 @@ namespace ConsoleRpg
             gameSettings.SetActiveEnemyParty(enemyPartyNum);
         }
 
+        
+        /// <summary>
+        /// Increases the game stage by one.
+        /// </summary>
+        /// <remarks>The current stage determines which enemy party characters are active.</remarks>
+        public void IncreaseStage()
+        {
+            Stage++;
+        }
+
+        /// <summary>
+        /// Sets the game to the last stage.
+        /// </summary>
+        /// <remarks>In the final stage, Satan becomes the active enemy.</remarks>
+        public void SetToLastStage()
+        {
+            Stage = 66;
+        }
 
         public void ProgressStageSetActiveEnemyParty(bool isTesting, int partyNumber)
         {
