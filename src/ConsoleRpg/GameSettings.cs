@@ -10,6 +10,9 @@ using System.Threading.Tasks;
 
 namespace ConsoleRpg
 {
+    /// <summary>
+    /// Provides the initial game configuration and references to core game components.
+    /// </summary>
     public class GameSettings
     {
         private string? playerName;
@@ -27,7 +30,7 @@ namespace ConsoleRpg
         }
 
         // constructor for testing
-        public GameSettings(bool skipConsoleInput)
+        internal GameSettings(bool skipConsoleInput)
         {
             if (skipConsoleInput)
             {
@@ -39,6 +42,9 @@ namespace ConsoleRpg
             }
         }
 
+        /// <summary>
+        /// Uses console-based user interaction to configure the initial game setup.
+        /// </summary>
         private void CreateInitialSettings()
         {
             Console.Write("You are the hero destined to hunt down Satan deep inside the dungeon. What is your name? ");
@@ -56,6 +62,9 @@ namespace ConsoleRpg
             Console.WriteLine();
         }
 
+        /// <summary>
+        /// Initializes the core game entities, including characters, parties, gear and managers.
+        /// </summary>
         private void CreatePartySettings()
         {
             Hero hero = new Hero(playerName);
@@ -87,6 +96,13 @@ namespace ConsoleRpg
             CharacterManager.AddCharacters(AllyParty.GetCharacters());
         }
 
+        /// <summary>
+        /// Creates an appropriate party controller based on the user's input.
+        /// </summary>
+        /// <param name="side">The side to be controlled.</param>
+        /// <param name="input">The user input indicating the controller type.</param>
+        /// <returns>A party controller configured for the specified side.</returns>
+        /// <remarks>If the input is invalid or unrecognized, a computer-controlled party is used by default.</remarks>
         private PartyController DecideController(Side side, string input)
         {
             switch (input)
@@ -103,6 +119,10 @@ namespace ConsoleRpg
             }
         }
 
+        /// <summary>
+        /// Sets the active enemy party.
+        /// </summary>
+        /// <param name="party">The party to activate.</param>
         public void SetActiveEnemyParty(Party party)
         {
             ActiveEnemyParty = party;
