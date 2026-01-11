@@ -10,7 +10,7 @@ using System.Xml.Linq;
 namespace ConsoleRpg.Parties
 {
     /// <summary>
-    /// Represents a party of characters on the same side, managing shared items such as gear and potions.
+    /// Represents a party of characters on the same side, managing shared items and gear.
     /// </summary>
     public class Party
     {
