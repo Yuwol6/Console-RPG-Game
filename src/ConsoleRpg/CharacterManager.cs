@@ -103,7 +103,7 @@ namespace ConsoleRpg
         }
 
         /// <summary>
-        /// Displays the status of all active characters on the specified side to the console.
+        /// Writes the status of all active characters on the specified side to the console.
         /// </summary>
         /// <param name="side">The side whose characters' statuses are displayed.</param>
         public void ShowStatus(Side side)

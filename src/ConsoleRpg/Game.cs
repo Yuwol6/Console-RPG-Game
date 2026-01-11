@@ -10,6 +10,9 @@ using System.Threading.Tasks;
 
 namespace ConsoleRpg
 {
+    /// <summary>
+    /// Coordinates the overall game flow and progression using the configured settings.
+    /// </summary>
     public class Game
     {
         private GameSettings gameSettings;
@@ -19,6 +22,9 @@ namespace ConsoleRpg
             this.gameSettings = gameSettings;
         }
 
+        /// <summary>
+        /// Handles the main game progression, going through stages and managing console-based user interaction.
+        /// </summary>
         public void RunGame()
         {
             while (true)
@@ -101,11 +107,21 @@ namespace ConsoleRpg
             }
         }
 
+        /// <summary>
+        /// Delegates character turn execution to the specified party controller.
+        /// </summary>
+        /// <param name="partyController">The controller responsible for turn execution.</param>
+        /// <param name="character">The character taking the turn.</param>
+        /// <param name="activeParty">The party to which the character belongs.</param>
         private void ControllerTurn(PartyController partyController, Character character, Party activeParty)
         {
             partyController.TakeTurn(gameSettings.CharacterManager, character, activeParty);
         }
 
+        /// <summary>
+        /// Writes the current game status and indicates whose turn it is to the console.
+        /// </summary>
+        /// <param name="character">The character taking the turn.</param>
         private void DisplayStatus(Character character)
         {
             Console.WriteLine();
@@ -119,6 +135,11 @@ namespace ConsoleRpg
             Console.WriteLine($"It is {character}'s turn...");
         }
 
+        /// <summary>
+        /// Advances the game to the next stage and applies all stage-transition effects.
+        /// </summary>
+        /// <param name="enemyPartyNum">The enemy party to activate for the next stage.</param>
+        /// <remarks>Updates parties, collects items and gear and sets the next stage.</remarks>
         private void ProgressStage(Party enemyPartyNum)
         {
             IncreaseStage();
@@ -129,7 +150,6 @@ namespace ConsoleRpg
             gameSettings.SetActiveEnemyParty(enemyPartyNum);
         }
 
-        
         /// <summary>
         /// Increases the game stage by one.
         /// </summary>
@@ -148,6 +168,11 @@ namespace ConsoleRpg
             Stage = 66;
         }
 
+        /// <summary>
+        /// Progresses the stage for test scenarios.
+        /// </summary>
+        /// <param name="isTesting">Checks that the method is used for testing.</param>
+        /// <param name="partyNumber">The enemy party to activate for the next stage.</param>
         public void ProgressStageSetActiveEnemyParty(bool isTesting, int partyNumber)
         {
             if (!isTesting) return;
@@ -170,16 +195,28 @@ namespace ConsoleRpg
             }
         }
 
+        /// <summary>
+        /// Gets the active enemy party characters for test scenarios.
+        /// </summary>
+        /// <returns>The list of active enemy party characters.</returns>
         public List<Character> GetActiveEnemyPartyCharacters()
         {
             return gameSettings.ActiveEnemyParty.GetCharacters();
         }
 
+        /// <summary>
+        /// Gets the number of available potions in the ally party for test scenarios.
+        /// </summary>
+        /// <returns>The number of available potions.</returns>
         public int GetAllyPotionCount()
         {
             return gameSettings.AllyParty.PotionCount;
         }
 
+        /// <summary>
+        /// Gets the number of available gear in the ally party for test scenarios.
+        /// </summary>
+        /// <returns>The number of available gear.</returns>
         public int GetAllyGearsCount()
         {
             return gameSettings.AllyParty.GetGears().Count;
